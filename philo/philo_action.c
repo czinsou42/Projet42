@@ -6,7 +6,7 @@
 /*   By: czinsou <czinsou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/18 13:18:26 by czinsou           #+#    #+#             */
-/*   Updated: 2025/12/08 14:44:55 by czinsou          ###   ########.fr       */
+/*   Updated: 2026/01/09 15:58:25 by czinsou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,16 +53,27 @@ void	philo_eat(t_philo *philo)
 	my_usleep(philo->table->time_to_eat, philo->table);
 }
 
-void	philo_sleep(t_philo *philo)
-{
-	print_action(philo, "is sleeping");
-	my_usleep(philo->table->time_to_sleep, philo->table);
-}
-
 void	philo_think(t_philo *philo)
 {
+	long	think;
+
+	if (philo->table->philo_nbr % 2 == 0)
+		return ;
+	think = philo->table->time_to_eat * 2 - philo->table->time_to_sleep;
+	if (think < 0)
+		think = 0;
 	print_action(philo, "is thinking");
-	my_usleep(5, philo->table);
+	my_usleep(think * 0.42, philo->table);
+}
+
+void	mini_routine(t_philo *philo)
+{
+	handle_forks(philo, LOCK);
+	philo_eat(philo);
+	handle_forks(philo, UNLOCK);
+	print_action(philo, "is sleeping");
+	my_usleep(philo->table->time_to_sleep, philo->table);
+	philo_think(philo);
 }
 
 void	*philo_routine(void *arg)
@@ -70,8 +81,15 @@ void	*philo_routine(void *arg)
 	t_philo	*philo;
 
 	philo = (t_philo *)arg;
-	if (philo->id % 2 == 0)
+	while (!get_bool(&philo->table->table_mutex, &philo->table->end_simulation))
+	{
+		if (get_bool(&philo->table->table_mutex,
+				&philo->table->all_threads_ready) == true)
+			break ;
 		my_usleep(1, philo->table);
+	}
+	if (philo->id % 2 == 0)
+		my_usleep(philo->table->time_to_eat / 2, philo->table);
 	while (1)
 	{
 		pthread_mutex_lock(&philo->table->table_mutex);
@@ -81,11 +99,7 @@ void	*philo_routine(void *arg)
 			return (NULL);
 		}
 		pthread_mutex_unlock(&philo->table->table_mutex);
-		handle_forks(philo, LOCK);
-		philo_eat(philo);
-		handle_forks(philo, UNLOCK);
-		philo_sleep(philo);
-		philo_think(philo);
+		mini_routine(philo);
 	}
 	return (NULL);
 }

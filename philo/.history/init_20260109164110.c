@@ -6,7 +6,7 @@
 /*   By: czinsou <czinsou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/07 15:15:45 by czinsou           #+#    #+#             */
-/*   Updated: 2026/01/09 16:51:33 by czinsou          ###   ########.fr       */
+/*   Updated: 2026/01/09 16:41:11 by czinsou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,17 +35,17 @@ void	philo_init(t_table *table)
 	t_philo	*philo;
 
 	i = 0;
+	philo = table->philos;
 	while (i < table->philo_nbr)
 	{
-		philo = &table->philos[i];
-		philo->id = i + 1;
-		philo->full = false;
-		philo->nbr_meals = 0;
-		philo->table = table;
-		philo->last_meals_time = table->start_simulation;
-		philo->have_first = 0;
-		philo->have_second = 0;
-		philo->thread_id = 0;
+		philo[i].id = i + 1;
+		philo[i].full = false;
+		philo[i].nbr_meals = 0;
+		philo[i].table = table;
+		philo[i].last_meals_time = table->start_simulation;
+		philo[i].have_first = 0;
+		philo[i].have_second = 0;
+		philo[i].thread_id = 0;
 		assign_forks(philo, table->forks, i);
 		i++;
 	}

@@ -6,7 +6,7 @@
 /*   By: czinsou <czinsou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 15:13:44 by czinsou           #+#    #+#             */
-/*   Updated: 2026/01/09 16:51:20 by czinsou          ###   ########.fr       */
+/*   Updated: 2026/01/09 16:06:11 by czinsou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,6 @@ int	main(int argc, char **argv)
 		return (1);
 	if (data_init(&table) == -1)
 		return (-1);
-	table.start_simulation = gettime();
 	philo_init(&table);
 	diner_simulation(&table);
 	destroy_all(&table);

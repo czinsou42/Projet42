@@ -6,7 +6,7 @@
 /*   By: czinsou <czinsou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/13 14:44:17 by czinsou           #+#    #+#             */
-/*   Updated: 2026/01/09 16:58:04 by czinsou          ###   ########.fr       */
+/*   Updated: 2026/01/09 16:44:51 by czinsou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ void	destroy_all(t_table *table)
 			table->philos[i].thread_id = 0;
 		}
 		i++;
+		pthread_mutex_destroy(&table->philos[i].table);
 	}
 	i = 0;
 	while (i < table->philo_nbr)

@@ -6,7 +6,7 @@
 /*   By: czinsou <czinsou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/07 15:15:45 by czinsou           #+#    #+#             */
-/*   Updated: 2026/01/09 16:51:33 by czinsou          ###   ########.fr       */
+/*   Updated: 2026/01/09 16:49:41 by czinsou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	philo_init(t_table *table)
 	i = 0;
 	while (i < table->philo_nbr)
 	{
-		philo = &table->philos[i];
+	
 		philo->id = i + 1;
 		philo->full = false;
 		philo->nbr_meals = 0;

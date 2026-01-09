@@ -6,7 +6,7 @@
 /*   By: czinsou <czinsou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/28 13:29:58 by czinsou           #+#    #+#             */
-/*   Updated: 2026/01/09 16:44:42 by czinsou          ###   ########.fr       */
+/*   Updated: 2026/01/09 15:58:40 by czinsou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ typedef struct s_philo
 	t_fork				*second_fork;
 	int					have_first;
 	int					have_second;
+	t_mtx				eat_mutex;
 	pthread_t			thread_id;
 	t_table				*table;
 }						t_philo;

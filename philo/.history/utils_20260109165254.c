@@ -6,7 +6,7 @@
 /*   By: czinsou <czinsou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/13 14:44:17 by czinsou           #+#    #+#             */
-/*   Updated: 2026/01/09 16:58:04 by czinsou          ###   ########.fr       */
+/*   Updated: 2026/01/09 16:52:54 by czinsou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,3 +71,4 @@ void	my_usleep(long duration_ms, t_table *table)
 		usleep(10);
 	}
 }
+

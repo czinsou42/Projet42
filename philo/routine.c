@@ -6,7 +6,7 @@
 /*   By: czinsou <czinsou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/18 13:08:36 by czinsou           #+#    #+#             */
-/*   Updated: 2025/12/08 14:43:29 by czinsou          ###   ########.fr       */
+/*   Updated: 2026/01/09 15:40:09 by czinsou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,14 +37,15 @@ void	check_philos(t_table *table)
 		if (safe_mutex(&table->table_mutex, LOCK) == -1)
 			return ;
 		now = gettime();
-		if (now - table->philos[i].last_meals_time >= table->time_to_die)
+		if (((now - table->philos[i].last_meals_time) > table->time_to_die)
+			&& !table->end_simulation)
 		{
 			print_death(&table->philos[i], "is died");
 			table->end_simulation = true;
 			safe_mutex(&table->table_mutex, UNLOCK);
 			return ;
 		}
-		if (table->nbr_limit_meals
+		if (table->nbr_limit_meals > 0
 			&& table->philos[i].nbr_meals >= table->nbr_limit_meals)
 			table->philos[i].full = true;
 		safe_mutex(&table->table_mutex, UNLOCK);
@@ -57,8 +58,13 @@ void	*routine(void *arg)
 	t_table	*table;
 
 	table = (t_table *)arg;
-	while (!(table->end_simulation))
+	while (1)
 	{
+		if (safe_mutex(&table->table_mutex, LOCK) == -1)
+			return (NULL);
+		if (table->end_simulation)
+			return ((safe_mutex(&table->table_mutex, UNLOCK)), NULL);
+		safe_mutex(&table->table_mutex, UNLOCK);
 		check_philos(table);
 		if ((table->nbr_limit_meals > 0) && all_full(table))
 		{

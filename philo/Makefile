@@ -6,16 +6,16 @@
 #    By: czinsou <czinsou@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/12/04 17:54:52 by czinsou           #+#    #+#              #
-#    Updated: 2025/12/08 13:44:48 by czinsou          ###   ########.fr        #
+#    Updated: 2026/01/09 16:00:43 by czinsou          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = philo
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -g3
 
-SRCS = main.c init.c philo_action.c utils.c safe_utils.c routine.c print.c parsing.c
+SRCS = main.c init.c philo_action.c utils.c utils2.c safe_utils.c routine.c print.c parsing.c
 OBJS = $(SRCS:.c=.o)
 
 all: $(NAME)
